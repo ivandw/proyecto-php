@@ -1,0 +1,43 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<head>
+
+		<title>Push server desde nodejs</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/bootstrap.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  time {
+				color:gray;
+				font-weight: bold;
+			}
+			</style>
+	</head>
+	<body>
+		
+        <time></time>
+        <div id="container">cargando..</div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+
+        // creamos el websocket con socket.io
+		
+        var socket = io.connect('http://localhost:8000');
+        // monstramos todos los datos incluidos en #container div
+        socket.on('notification', function (data) {
+        var registrosList = "";
+        $.each(data.registros,function(index,user){
+            registrosList += "<div class='media'><div class='media-left'><a><img class='media-object' style='margin-left:4px'; alt='imagen' width='50px' height='50px' src='" + user.link + "'></a></div><div class='media-body'><h5 class='media-heading'>Ivan Molinari <small><i>"+ user.tiempo +"</i></small></h5><p>" + user.user_name +  "</p></div></div> <hr />"
+			"" 
+                           ; });
+        registrosList += "";
+        $('#container').html(registrosList);
+   
+        $('time').html('Ultimo Update:' + data.time +"<hr>") ;
+      });
+    </script>
+    </body>
+</html>

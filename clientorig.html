@@ -1,0 +1,54 @@
+<html>
+	<head>
+
+		<title>Push server desde nodejs</title>
+		<style>
+			dd,dt {
+				float:left;
+				margin:0;
+				padding:5px;
+				clear:both;
+				display:block;
+				width:100%;
+
+			}
+			dt {
+				background:#ddd;
+			}
+			time {
+				color:gray;
+			}
+			.imgg { 
+			width: 494px;
+			height: 50px;
+}
+		</style>
+	</head>
+	<body>
+        <time></time>
+        <div id="container">cargando..</div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+
+        // creamos el websocket con socket.io
+		
+        var socket = io.connect('http://localhost:8000');
+        // monstramos todos los datos incluidos en #container div
+        socket.on('notification', function (data) {
+        var registrosList = "<dl>";
+        $.each(data.registros,function(index,user){
+            registrosList += "<dt>" + user.tiempo + "</dt>\n" + 
+							"<dt>" + user.user_name + "</dt>\n" +
+                         "<dd>" + user.user_description + "\n" +
+                            "<figure> <img class='imgg' src='" + user.user_img + "' /></figure>"
+                         "</dd>";
+        });
+        registrosList += "</dl>";
+        $('#container').html(registrosList);
+   
+        $('time').html('Ultimo Update:' + data.time);
+      });
+    </script>
+    </body>
+</html>
