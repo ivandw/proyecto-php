@@ -1,6 +1,6 @@
-nodejs-MySQL-push-notifications
-====================================
 
+====================================
+nodejs mysql push
 
 servidor node stremeando datos de una base mysql por websockets y socket.io, y configurando la hora del ultimo push con moment-timezone
 
